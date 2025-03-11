@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+@import "tailwindcss";
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.plus-jakarta-sans{
+  font-family: "Plus Jakarta Sans", serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.lime-bg{
+  background-color: hsl(61, 70%, 52%);
+}
+
+.lime{
+  color: hsl(61, 70%, 52%);
+}
+
+.red-bg{
+  background-color: hsl(4, 69%, 50%);
+}
+
+.red{
+  color: hsl(4, 69%, 50%);
+}
+
+.slate-100-bg{
+  background-color: #e3f3fd;
+}
+
+.slate-100{
+  color: hsl(202, 86%, 94%);
+}
+
+.slate-300-bg{
+  background-color: hsl(203, 41%, 72%);
+}
+
+.slate-300{
+  color: #9abed5;
+}
+
+.slate-500-bg{
+  background-color: hsl(200, 26%, 54%);
+}
+
+.slate-500{
+  color: hsl(200, 26%, 54%);
+}
+
+.slate-700-bg{
+  background-color: hsl(200, 24%, 40%);
+}
+
+.slate-700{
+  color: #4e6e7e;
+}
+
+.slate-900-bg{
+  background-color: hsl(202, 55%, 16%);
+}
+
+.slate-900{
+  color: #122f3f;
+}
+
+.inputerror{
+  border-color: red;
+
+}
