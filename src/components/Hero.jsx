@@ -1,17 +1,31 @@
-import React, { useEffect } from 'react';
-import bgPattern from '../assets/images/pattern-bg-desktop.png';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import bgDesktopPattern from '../assets/images/pattern-bg-desktop.png';
+import bgMobilePattern from '../assets/images/pattern-bg-mobile.png';
 import Input from './Input';
 import ContentContainer from './ContentContainer';
 
-const Hero = ({ setIpAddress, setGeoInfo, ipAddress, geoInfo }) => {
+const Hero = ({ setIpAddress, setGeoInfo, ipAddress, geoInfo, setRespose }) => {
+
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
+
+  
+
   useEffect(() => {
     getVisitorIP();
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 767);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const getVisitorIP = async () => {
     try {
-      const response = await fetch('https://geo.ipify.org/api/v2/country,city?apiKey=at_l4q84sBB1RLuRp9gscA7PX1qqKibz&ipAddress=192.212.174.101');
-      const data = await response.json();
+      const response = await axios.get('https://geo.ipify.org/api/v2/country,city?apiKey=at_0kAMjxKIOCAb4C5YY6HKBn9cjRWIR&ipAddress=192.212.174.101');
+      const data = response.data;
+      setRespose(response.data)
       setIpAddress(data.ip);
       setGeoInfo(data);
     } catch (error) {
@@ -25,8 +39,8 @@ const Hero = ({ setIpAddress, setGeoInfo, ipAddress, geoInfo }) => {
       return input; // Already an IP
     }
     try {
-      const response = await fetch(`https://dns.google/resolve?name=${input}&type=A`);
-      const data = await response.json();
+      const response = await axios.get(`https://dns.google/resolve?name=${input}&type=A`);
+      const data = response.data;
       if (data.Answer) {
         return data.Answer[0].data;
       }
@@ -48,8 +62,8 @@ const Hero = ({ setIpAddress, setGeoInfo, ipAddress, geoInfo }) => {
       return;
     }
     try {
-      const response = await fetch(`https://geo.ipify.org/api/v2/country,city?apiKey=at_l4q84sBB1RLuRp9gscA7PX1qqKibz&ipAddress=${resolvedIP}`);
-      const data = await response.json();
+      const response = await axios.get(`https://geo.ipify.org/api/v2/country,city?apiKey=at_0kAMjxKIOCAb4C5YY6HKBn9cjRWIR&ipAddress=${resolvedIP}`);
+      const data = response.data;
       setGeoInfo(data);
     } catch (error) {
       console.error('Failed to fetch Location Info: ', error);
@@ -58,8 +72,12 @@ const Hero = ({ setIpAddress, setGeoInfo, ipAddress, geoInfo }) => {
 
   return (
     <div className='relative'>
-      <div className='relative bg-no-repeat bg-cover bg-center h-[30vh] flex flex-col items-center gap-y-5' style={{ backgroundImage: `url(${bgPattern})` }}>
-        <h1 className='text-3xl text-white font-bold mt-5'>IP Address Tracker</h1>
+      <div className='relative bg-no-repeat bg-cover bg-center h-[30vh] w-screen flex flex-col items-center gap-y-5' 
+      style={{
+        backgroundImage: `url(${isMobile ? bgMobilePattern : bgDesktopPattern})`,
+      }}
+      >
+        <h1 className='text-3xl text-white text-center font-bold mt-5 w-[50%]'>IP Address Tracker</h1>
         <Input 
           value={ipAddress}
           handleChange={handleChange}
@@ -70,7 +88,7 @@ const Hero = ({ setIpAddress, setGeoInfo, ipAddress, geoInfo }) => {
         ipAddress={geoInfo.ip}
         location={geoInfo.location ? `${geoInfo.location.region}, ${geoInfo.location.country} ${geoInfo.location.postalCode}` : ''}
         timezone={geoInfo.location ? `UTC ${geoInfo.location.timezone}` : ''}
-        isp={geoInfo.isp}
+        isp={geoInfo.isp ? `${geoInfo.isp}`: 'NO ISP AVAILABLE'}
       />
     </div>
   );

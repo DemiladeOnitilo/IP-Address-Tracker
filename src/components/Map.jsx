@@ -2,11 +2,11 @@ import React, { useEffect, useRef } from 'react'
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
-import iconLocation from '../assets/images/icon-location.svg'
+import marker from '../assets/images/icon-location.svg'
 
 // Define the custom marker icon
 const customIcon = new L.Icon({
-  iconUrl: iconLocation,
+  iconUrl: marker,
   iconSize: [46, 56], // size of the icon
   iconAnchor: [23, 56], // point of the icon which will correspond to marker's location
   popupAnchor: [0, -56] // point from which the popup should open relative to the iconAnchor
@@ -24,14 +24,14 @@ const MapUpdater = ({ center }) => {
 }
 
 const Map = ({ geoInfo }) => {
-  const defaultLocation = { lat: 37.3861, lng: -122.0839 } // Default location (Mountain View, CA)
+  const defaultLocation = { lat: 34.08057, lng: -118.07285 } // Default location (Mountain View, CA)
   const center = geoInfo?.location?.lat && geoInfo?.location?.lng
     ? [geoInfo.location.lat, geoInfo.location.lng]
     : [defaultLocation.lat, defaultLocation.lng]
 
   return (
     <div className='h-[70vh] w-screen overflow-hidden'>
-      <MapContainer center={center} zoom={13} scrollWheelZoom={true} style={{ height: '100%', width: '100%' }}>
+      <MapContainer center={center} zoom={10} scrollWheelZoom={true} zoomControl={false} style={{ height: '100%', width: '100%' }}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
