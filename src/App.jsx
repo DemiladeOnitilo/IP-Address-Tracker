@@ -8,7 +8,7 @@ const App = () => {
   const [response, setRespose] = useState({})
 
   return (
-    <div className='relative'>
+    <div className='flex flex-col items-center justify-center min-h-screen'>
       <Hero 
         setGeoInfo={setGeoInfo}
         setIpAddress={setIpAddress}
