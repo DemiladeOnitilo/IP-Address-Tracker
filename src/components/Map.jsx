@@ -4,7 +4,6 @@ import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import marker from '../assets/images/icon-location.svg'
 
-// Define the custom marker icon
 const customIcon = new L.Icon({
   iconUrl: marker,
   iconSize: [46, 56], // size of the icon

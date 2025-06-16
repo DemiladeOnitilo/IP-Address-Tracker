@@ -24,7 +24,7 @@ const Hero = ({ setIpAddress, setGeoInfo, ipAddress, geoInfo, setRespose }) => {
         "https://geo.ipify.org/api/v2/country,city?apiKey=at_0kAMjxKIOCAb4C5YY6HKBn9cjRWIR&ipAddress=192.212.174.101"
       );
       const data = response.data;
-      setRespose(response.data);
+      setRespose(data);
       setIpAddress(data.ip);
       setGeoInfo(data);
     } catch (error) {
